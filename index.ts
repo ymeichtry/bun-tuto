@@ -1,8 +1,8 @@
-const yanis = 18
+const server = Bun.serve({
+    port: 3000,
+    fetch(req){
+        return new Response("Hello World! Are you learning bun?")
+    }
+})
 
-const read = (text: string) => {
-    return text
-}
-
-const text = read('Hellow World!@')
-console.log(text)
+console.log(`Listening on PORT http://localhost:${server.port}`)
