@@ -11,7 +11,7 @@ const server = Bun.serve({
             const body = figlet.textSync("Hola! senior?")
             return new Response(body)
         }
-        
+
         if(url.pathname === '/about'){
             return new Response("About me!")
         }
@@ -20,7 +20,18 @@ const server = Bun.serve({
             return new Response("Contact me!")
         }
 
+        if(url.pathname == "/feed"){
+            throw new Error('Could not fetch feed')
+        }
+
         return new Response('Not Found', {status: 404})
+    },
+    error(error){
+        return new Response(`<pre> ${error} \n ${error.stack} </pre>`,{
+            headers: {
+                'Content-Type': 'text/html'
+            }
+        })
     }
 })
 
