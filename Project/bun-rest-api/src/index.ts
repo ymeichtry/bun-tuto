@@ -1,6 +1,9 @@
 import { Elysia } from "elysia";
 
 const app = new Elysia().get("/", () => "Hello Elysia")
+.state('version', 1)
+.decorate('getDate', () => Date.now())
+
 // .get('/post/:id', ({ params }: { params: { id: string } }) => { return { id: id, title: 'learn Bun' } })
 .get('/post/:id', ({params: {id}}) => {return {id: id, title: 'learn Bun'}})
 
@@ -10,7 +13,7 @@ const app = new Elysia().get("/", () => "Hello Elysia")
 })
 
 .get('/track/*', () => {return 'track all'})
-.get('/tracks', () => {
+.get('/tracks', ({store, getDate}) => {
 //   return new Response(JSON.stringify({
 //     "tracks": [
 //       'Money for nothing',
@@ -23,6 +26,9 @@ const app = new Elysia().get("/", () => "Hello Elysia")
 //     }
 //   })
 // })
+console.log(store)
+console.log(getDate())
+
   return {
     "tracks": [
     'Money for nothing',
