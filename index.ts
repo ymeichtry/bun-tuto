@@ -24,6 +24,10 @@ const server = Bun.serve({
             throw new Error('Could not fetch feed')
         }
 
+        if(url.pathname === "/greet"){
+            return new Response(Bun.file('./greet.txt'))
+        }
+
         return new Response('Not Found', {status: 404})
     },
     error(error){
