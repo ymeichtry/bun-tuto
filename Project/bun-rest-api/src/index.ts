@@ -1,16 +1,10 @@
 import { Elysia } from "elysia";
-
-// Define Plugin
-const plugin = new Elysia()
-.state('plugin-version', 1)
-.get('/form-plugin', () => 'Hi')
-.get('/greet', () => 'Hello Dev!')
+import { plugin } from "./plugin";
 
 // APPLICATION
 const app = new Elysia().get("/", () => "Hello Elysia")
 
 .use(plugin)
-
 .state({
   id: 1,
   email: 'john@doe.com'
