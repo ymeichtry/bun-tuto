@@ -10,6 +10,28 @@ const app = new Elysia().get("/", () => "Hello Elysia")
 })
 
 .get('/track/*', () => {return 'track all'})
+.get('/tracks', () => {
+//   return new Response(JSON.stringify({
+//     "tracks": [
+//       'Money for nothing',
+//       'Do I wanna know',
+//       'Take me out'
+//     ]
+//   }), {
+//     headers: {
+//       'Content-Type': 'application/json'
+//     }
+//   })
+// })
+  return {
+    "tracks": [
+    'Money for nothing',
+    'Do I wanna know',
+    'Take me out',
+    'New song'
+  ]
+}
+})
 .listen(3000);
 
 console.log(
