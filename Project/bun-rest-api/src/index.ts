@@ -1,6 +1,16 @@
 import { Elysia } from "elysia";
 
+// Define Plugin
+const plugin = new Elysia()
+.state('plugin-version', 1)
+.get('/form-plugin', () => 'Hi')
+.get('/greet', () => 'Hello Dev!')
+
+// APPLICATION
 const app = new Elysia().get("/", () => "Hello Elysia")
+
+.use(plugin)
+
 .state({
   id: 1,
   email: 'john@doe.com'
@@ -32,6 +42,7 @@ const app = new Elysia().get("/", () => "Hello Elysia")
 // })
 console.log(store)
 console.log(getDate())
+console.log(store['plugin-version'])
 
   return {
     "tracks": [
