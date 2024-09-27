@@ -1,4 +1,4 @@
-import { Elysia } from "elysia";
+import { Elysia, t } from "elysia";
 import { plugin } from "./plugin";
 
 // APPLICATION
@@ -48,9 +48,18 @@ console.log(store['plugin-version'])
 }
 });
 
-//version
+// user
 app.group('/user', app => app
-  .post('/sing-in', () => "Sinin Route")
+  .post('/sing-in', ({body}) => body, {
+    body: t.Object({
+      username: t.String(),
+      password: t.String()
+    }),
+    response: t.Object({
+      username: t.String(),
+      password: t.String()
+    })
+  })
   .post('/sing-up', () => "Singup Route")
   .post('/profile', () => "Profile Route")
   .get('/:id', () => "User by id")
