@@ -1,13 +1,17 @@
 import { Elysia } from "elysia";
 
 const app = new Elysia().get("/", () => "Hello Elysia")
-.state('version', 1)
+.state({
+  id: 1,
+  email: 'john@doe.com'
+})
 .decorate('getDate', () => Date.now())
 
 // .get('/post/:id', ({ params }: { params: { id: string } }) => { return { id: id, title: 'learn Bun' } })
 .get('/post/:id', ({params: {id}}) => {return {id: id, title: 'learn Bun'}})
 
-.post('/post', ({body, set}) => {
+.post('/post', ({body, set, store}) => {
+  console.log(store)
   set.status = 201
   return body
 })
