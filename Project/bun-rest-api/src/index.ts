@@ -1,5 +1,6 @@
 import { Elysia, t } from "elysia";
 import { plugin } from "./plugin";
+import { singinDTO } from "./models";
 
 // APPLICATION
 const app = new Elysia().get("/", () => "Hello Elysia")
@@ -51,14 +52,8 @@ console.log(store['plugin-version'])
 // user
 app.group('/user', app => app
   .post('/sing-in', ({body}) => body, {
-    body: t.Object({
-      username: t.String(),
-      password: t.String()
-    }),
-    response: t.Object({
-      username: t.String(),
-      password: t.String()
-    })
+    body: singinDTO,
+    response: singinDTO
   })
   .post('/sing-up', () => "Singup Route")
   .post('/profile', () => "Profile Route")
@@ -69,7 +64,13 @@ app.group('/v1', app => app
   .get('/', () => "Version 1")
   .group('/products', app => app
     .post('/', () => "Create Product")
-    .get('/:id', () => "Get Product by id")
+    .get('/:id', ({params: {id}}) => {
+      return id
+    }, {
+      params: t.Object({
+        id: t.Numeric()
+      })
+    })
     .put('/:id', () => "Update Product by id")
     .delete('/:id', () => "Delete Product by id")
   )
